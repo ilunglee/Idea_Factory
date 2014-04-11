@@ -1,0 +1,14 @@
+%h1= @idea.title
+%p.owner= @idea.get_owner(@idea.user_id)
+.well
+  %p= @idea.body
+  %p= formatted_date(@idea.created_at)
+%br/
+- if current_user.id == @idea.user_id
+  .pull-right
+    = link_to "edit", edit_idea_path(@idea), class: "btn btn-default"
+    = link_to "delete", @idea, method: :delete, data: {confirm: "are you sure?"}, class: "btn btn-danger"
+    %br/ 
+
+.comments-container
+  = render @comments # rails shortcut for below

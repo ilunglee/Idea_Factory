@@ -1,0 +1,2 @@
+class CommentsController < IdeasController
+end

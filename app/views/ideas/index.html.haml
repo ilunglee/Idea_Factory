@@ -1,0 +1,32 @@
+%h1 Listing all the ideas
+- @ideas.each do |idea|
+  / = debug idea
+  %div{id: dom_id(idea)}
+    %h2= link_to idea.title, idea
+    / default will be question_path if we pass in question
+    %p= idea.body
+    %p.owner 
+      By: #{idea.get_owner(idea.user_id)}
+    %p
+      Created On: #{formatted_date(idea.created_at)}
+    %p
+      Updated On: #{formatted_date(idea.updated_at)}
+    .pull-right{style: "height: 50px; margin-top: -40px; width: 200px;"}
+    - if current_user.membership_of(idea)
+      / = button_to "Joined", [idea, @members], method: :delete
+
+    - else
+      = form_for [idea, idea.members.new] do |f|
+        = f.submit "Join"
+
+      / %br/ 
+      / - if @vote.persisted? && !@vote.is_up?
+      /   = button_to "Undo", [@question, @vote], method: :delete
+      / - else
+      /   = form_for [@question, @vote] do |f| #or just put Vote.new
+      /     = f.hidden_field :is_up, value: false
+      /     = f.submit "Vote Down"
+
+      
+
+    %hr/

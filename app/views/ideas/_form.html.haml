@@ -1,0 +1,16 @@
+- if @idea.errors.any?
+  %ul
+    - @idea.errors.full_messages.each do |message|
+      %li= message
+
+= form_for @idea  do |f|
+  %br/
+  .form-group
+    = f.label :title, "Idea Title"
+    %br/
+    = f.text_field :title, class: "form-control"
+  .form-group
+    = f.label :body, "Idea Description"
+    %br/
+    = f.text_area :body, class: "form-control", rows: "3", style: "resize: none;"
+  = f.submit (@idea.persisted? ? "Update" : "Save"), class: "btn btn-default"

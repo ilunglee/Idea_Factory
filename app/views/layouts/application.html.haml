@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title IdeaFactory
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    .container
+      - if flash[:notice]
+        %h3.bg-success= flash[:notice]
+      - if flash[:error]
+        %h3.bg-danger= flash[:notice]
+    .container
+      %br/
+      = link_to "Home", ideas_path, class: "btn btn-default"
+      .pull-right
+        = link_to "New", new_idea_path, class: "btn btn-default"
+        - if user_signed_in?
+          %span
+            Hello #{current_user.full_name}
+          = link_to "Sign Out", destroy_user_session_path, class: "btn btn-default", method: :delete
+        - else
+          = link_to "Sign In", new_user_session_path, class: "btn btn-default"
+    .container
+      = yield
