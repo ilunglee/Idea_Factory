@@ -6,10 +6,15 @@ class User < ActiveRecord::Base
 
   has_many :ideas
   has_many :comments
-  has_many :membership, through: :ideas, source: :members
+  has_many :memberships, through: :ideas, source: :members
+  has_many :members
 
   def membership_of(idea)
     Member.where(idea: idea, user: self).first
+  end
+
+  def find_for_idea(idea)
+   Member.where(idea: idea, user: self).first
   end
 
   def full_name

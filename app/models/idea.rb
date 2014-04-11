@@ -6,6 +6,7 @@ class Idea < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   has_many :members
+  has_many :memberships, through: :members, source: :user
 
   def get_owner(user_id)
     if @user = User.find_by_id(user_id)

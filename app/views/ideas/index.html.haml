@@ -13,7 +13,7 @@
       Updated On: #{formatted_date(idea.updated_at)}
     .pull-right{style: "height: 50px; margin-top: -40px; width: 200px;"}
     - if current_user.membership_of(idea)
-      / = button_to "Joined", [idea, @members], method: :delete
+      = button_to "Joined", [idea, current_user.find_for_idea(idea)], method: :delete
 
     - else
       = form_for [idea, idea.members.new] do |f|
